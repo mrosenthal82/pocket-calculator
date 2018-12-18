@@ -55,37 +55,37 @@ There should be a distinct button for each of the 10 digits (i.e., 0 through 9).
 
 The decimal point should be designated its own button. When pressed, a decimal point (along with the implied 0 until and unless another digit is pressed) should be appended to the end of the display value.
 
-### Division
+### <code>&divide;</code>
 
-The division operator divides the current total (as stored in memory) by the next value entered by the user. If the next value entered by the user is not a number, display an error message. Mathematical operations can be chained together, so you'll need to make sure your calculator can handle multiple operations entered in sequence.
+The <code>&divide;</code> button divides the current total (as stored in memory) by the next value entered by the user. If the next value entered by the user is not a number, display an error message. Mathematical operations can be chained together, so you'll need to make sure your calculator can handle multiple operations entered in sequence.
 
-### Multiplication
+### <code>&times;</code>
 
-The multiplication operator multiplies the current total (as stored in memory) by the next value entered by the user. If the next value entered by the user is not a number, display an error message. Mathematical operations can be chained together, so you'll need to make sure your calculator can handle multiple operations entered in sequence.
+The <code>&times;</code> button multiplies the current total (as stored in memory) by the next value entered by the user. If the next value entered by the user is not a number, display an error message. Mathematical operations can be chained together, so you'll need to make sure your calculator can handle multiple operations entered in sequence.
 
-### Subtraction
+### <code>-</code>
 
-The subtraction operator subtracts the next value entered by the user with the current total (as stored in memory). If the next value entered by the user is not a number, display an error message. Mathematical operations can be chained together, so you'll need to make sure your calculator can handle multiple operations entered in sequence.
+The <code>-</code> button subtracts the next value entered by the user with the current total (as stored in memory). If the next value entered by the user is not a number, display an error message. Mathematical operations can be chained together, so you'll need to make sure your calculator can handle multiple operations entered in sequence.
 
-### Addition
+### <code>+</code>
 
-The addition operator adds the next value entered by the user to the current total (as stored in memory). If the next value entered by the user is not a number, display an error message. Mathematical operations can be chained together, so you'll need to make sure your calculator can handle multiple operations entered in sequence.
+The <code>+</code> button adds the next value entered by the user to the current total (as stored in memory). If the next value entered by the user is not a number, display an error message. Mathematical operations can be chained together, so you'll need to make sure your calculator can handle multiple operations entered in sequence.
 
-### Equals
+### <code>=</code>
 
-The equals operator computes the potentially chained operations together, and shows this calculated total in the display. If the result of the operations is invalid (i.e., in the case of division by 0), display an error message.
+The <code>=</code> button computes the potentially chained operations together, and shows this calculated total in the display. If the result of the operations is invalid (i.e., in the case of division by 0), display an error message.
 
-### Percent
+### <code>%</code>
 
-The percentage operator converts the current total (as stored in memory) to a percentage (i.e., 78 would be converted to 0.78). Like the mathematical operators, the percentage operator, too, can be chained together with other operations.
+The <code>%</code> button converts the current total (as stored in memory) to a percentage (i.e., 78 would be converted to 0.78). Like the mathematical operators, the <code>%</code> operator, too, can be chained together with other operations.
 
-### Plus/Minus
+### <code>+/-</code>
 
-The plus/minus operator serves to negate numbers, effectively flipping their signs from positive to negative or negative to positive (i.e., 4 would be flipped to -4). Like the mathematical operators, the plus/minus operator, too, can be chained together with other operations.
+The <code>+/-</code> button serves to negate numbers, effectively flipping their signs from positive to negative or negative to positive (i.e., 4 would be flipped to -4). Like the mathematical operators, the <code>+/-</code> operator, too, can be chained together with other operations.
 
-### AC
+### <code>AC</code>
 
-The clear button on many pocket calculators serves the dual purpose of clearing either the entire display (and current total as stored in memory), or just the most recently entered number or operation. We're going to simplify things a bit. The AC button should clear everything. Display values, memory values, gone.
+The <code>AC</code> button on many pocket calculators serves the dual purpose of clearing either the entire display (and current total as stored in memory), or just the most recently entered number or operation. We're going to simplify things a bit. The <code>AC</code> button should clear everything. Display values, memory values, gone.
 
 ## Nice-to-Haves
 
