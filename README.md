@@ -14,7 +14,7 @@ To get started, you'll need to create a [GitHub](https://github.com/) repository
 
 01. Login to your [GitHub](https://github.com/) account and create a new repository named `pocket-calculator`.
 02. In GitBash, navigate to your `APCSP` folder.
-03. There's no skeleton repository to clone this time. Instead, create a folder named `pocket-calculator`.
+03. There's no starter code in the skeleton repository, so it's not necessary to clone anything. Instead, create a folder named `pocket-calculator`.
 ```
 mkdir pocket-calculator
 ```
