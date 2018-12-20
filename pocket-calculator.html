@@ -4,10 +4,10 @@
   <head>
     <title>Pocket Calculator</title>
     <link rel="stylesheet" type="text/css" href="css/pocket-calculator.css"/>
-    <script type="text/javascript" src="js/pcoket-calculator.js"></script>
+    <script type="text/javascript" src="js/pocket-calculator.js"></script>
   </head>
   <body>
-    <div id="calculator-body">
+    <div onLoad="setup();" id="calculator-body">
       <table>
           <tr>
             <th colspan="3">
@@ -15,31 +15,31 @@
             </th>
           </tr>
           <tr>
-            <td><button>AC</button></td>
+            <td><button onclick="setup();">AC</button></td>
             <td><button>+/-</button></td>
             <td><button>%</button></td>
             <td><button>/</button></td>
           </tr>
           <tr>
-            <td><button>1</button></td>
-            <td><button>2</button></td>
-            <td><button>3</button></td>
+            <td><button onclick="one();">1</button></td>
+            <td><button onclick="two();">2</button></td>
+            <td><button onclick="three();">3</button></td>
             <td><button>*</button></td>
           </tr>
           <tr>
-            <td><button>4</button></td>
-            <td><button>5</button></td>
-            <td><button>6</button></td>
+            <td><button onclick="four();">4</button></td>
+            <td><button onclick="five();">5</button></td>
+            <td><button onclick="six();">6</button></td>
             <td><button>-</button></td>
           </tr>
           <tr>
-            <td><button>7</button></td>
-            <td><button>8</button></td>
-            <td><button>9</button></td>
+            <td><button onclick="seven();">7</button></td>
+            <td><button onclick="eight();">8</button></td>
+            <td><button onclick="nine();">9</button></td>
             <td><button>+</button></td>
           </tr>
           <tr>
-            <td colspan="2"><button>0</button></td>
+            <td colspan="2" onclick="zero();"><button>0</button></td>
             <td><button>.</button></td>
             <td><button>=</button></td>
           </tr>
