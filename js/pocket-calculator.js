@@ -135,3 +135,19 @@ function point() {
   digitCount++;
   pointCount++;
 }
+
+function add(){
+  let valOne = Number(val);
+  let operation = "add";
+  val = "";
+  display.innerHTML="+";
+}
+
+function equals() {
+  let valTwo = Number(val);
+  let final;
+  if (operation == add){
+    final = valOne + valTwo;
+  }
+  display.innerHTML = final;
+}
