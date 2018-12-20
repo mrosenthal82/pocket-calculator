@@ -1,12 +1,14 @@
 let val;
 let digitCount=0;
 let pointCount=0;
+let operation;
 
 function setup(){
   let display = document.getElementById("display");
   val = "0";
   digitCount=0;
   pointCount=0;
+  operation="";
   display.innerHTML = val;
 }
 
