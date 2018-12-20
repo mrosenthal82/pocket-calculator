@@ -1,10 +1,12 @@
 let val;
 let digitCount=0;
+let pointCount=0;
 
 function setup(){
   let display = document.getElementById("display");
   val = "0";
   digitCount=0;
+  pointCount=0;
   display.innerHTML = val;
 }
 
@@ -116,4 +118,20 @@ function zero() {
   }
   display.innerHTML = val;
   digitCount++;
+}
+
+function point() {
+  let display = document.getElementById("display");
+  if (pointCount==0){
+    if (digitCount==0){
+      val=".";
+    } else {
+      val +=".";
+    }
+  } else {
+    val="ERROR";
+  }
+  display.innerHTML = val;
+  digitCount++;
+  pointCount++;
 }
