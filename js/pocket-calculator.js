@@ -66,9 +66,29 @@ function point() {
   pointCount++;
 }
 
+// function add(){
+//   valOne = val;
+//   operation = "+";
+//   val = 0;
+//   display.innerHTML=operation;
+// }
+
 function add(){
+  useOperation("+");
+}
+function subtract(){
+  useOperation("-");
+}
+function multiply(){
+  useOperation("*");
+}
+function divide(){
+  useOperation("/");
+}
+
+function useOperation(op){
+  operation = op;
   valOne = val;
-  operation = "+";
   val = 0;
   display.innerHTML=operation;
 }
@@ -79,13 +99,13 @@ function equals() {
   if (operation == '+'){
     final = valOne + valTwo;
   }
-  if (operation == 'subtract'){
+  if (operation == '-'){
     final = valOne - valTwo;
   }
-  if (operation == 'multiply'){
+  if (operation == '*'){
     final = valOne * valTwo;
   }
-  if (operation == 'divide'){
+  if (operation == '/'){
     final = valOne / valTwo;
   }
   display.innerHTML = final;
