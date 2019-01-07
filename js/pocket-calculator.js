@@ -1,4 +1,3 @@
-
 let val = 0;
 let valOne;
 let valTwo;
@@ -84,3 +83,13 @@ function percent(){
   val=val/100;
   show();
 }
+
+// What Do I Need to Fix?
+//
+// - whatever's happening with the decimals
+// - getting keepVal to be applicable
+// - formatting digits on the display
+// - error messages for things like equals
+// - sequencing operations
+// - nice-to-haves
+// - CSS
