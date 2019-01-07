@@ -4,7 +4,6 @@ let valOne;
 let valTwo;
 let pointCount=0;
 let operation;
-let newDigit;
 let notDecimal = true;
 let decimalDigits=0;
 let keepVal=false;
@@ -60,8 +59,7 @@ function useOperation(op){
 }
 
 function equals() {
-  valTwo = valOne;
-  valOne = val;
+  valTwo = val;
   if (operation == '+'){
     val = valOne + valTwo;
   }
@@ -74,5 +72,15 @@ function equals() {
   if (operation == '/'){
     val = valOne / valTwo;
   }
+  show();
+  resetVal();
+}
+
+function negative(){
+  val=0-val;
+  show();
+}
+function percent(){
+  val=val/100;
   show();
 }
