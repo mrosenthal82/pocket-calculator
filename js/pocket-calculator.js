@@ -43,7 +43,7 @@ function point() {
   if (pointCount==0){
     notDecimal=false;
     show();
-    display.innerHTML+=".";
+    display.innerHTML+=".0";
   } else {
     val="ERROR";
     show();
