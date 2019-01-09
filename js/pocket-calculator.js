@@ -33,6 +33,9 @@ function combinedValue(newDigit) {
     val=val*10+newDigit;
   } else {
     decimalDigits++;
+    alert(val);
+    alert(newDigit/Math.pow(10, decimalDigits));
+    alert(val+newDigit/Math.pow(10, decimalDigits));
     val+=newDigit/Math.pow(10, decimalDigits);
   }
   show();
