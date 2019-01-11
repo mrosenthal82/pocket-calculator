@@ -19,7 +19,9 @@ function show(){
   if (val.toString().length > 9){
     display.innerHTML = Number.parseFloat(val).toExponential();
   }
-  if (pointCount > 1 || (operation === '/' && valTwo === 0)){
+  if (pointCount > 1){
+    display.innerHTML ="ERROR";
+  } else if (operation === '/' && valTwo === 0){
     display.innerHTML ="ERROR";
   }
 }
