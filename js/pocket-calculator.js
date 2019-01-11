@@ -41,10 +41,16 @@ function combinedValue(newDigit) {
     val=val*10+newDigit;
   } else {
     decimalDigits++;
-    alert(val);
-    alert(newDigit/Math.pow(10, decimalDigits));
-    alert(val+newDigit/Math.pow(10, decimalDigits));
-    val+=newDigit/Math.pow(10, decimalDigits);
+    console.log("1", val);
+    let temp = newDigit/Math.pow(10, decimalDigits);
+    console.log("temp", temp);
+    val += temp;
+    val = Number(val.toFixed(decimalDigits + 1));
+    console.log("2", val.toPrecision(decimalDigits + 1));
+    //val = Number.parseFloat(val).toPrecision(decimalDigits);
+    console.log("3", val);
+    // let valContinuation = (newDigit/Math.pow(10, decimalDigits)).toString();
+    // val+=(parseFloat(valContinuation).toPrecision(decimalDigits.toString()));
   }
   show();
 }
@@ -97,7 +103,6 @@ function percent(){
 // - whatever's happening with the decimals
 // - getting keepVal to be applicable
 // - commas
-// - error messages for things like equals
 // - sequencing operations
 // - nice-to-haves
 // - CSS
