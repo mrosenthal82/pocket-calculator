@@ -16,6 +16,12 @@ function setup(){
 function show(){
   let display = document.getElementById("display");
   display.innerHTML = val;
+  if (val.toString().length > 9){
+    display.innerHTML = Number.parseFloat(val).toExponential();
+  }
+  if (pointCount > 1 || (operation === '/' && valTwo === 0)){
+    display.innerHTML ="ERROR";
+  }
 }
 
 function resetVal(){
@@ -46,9 +52,6 @@ function point() {
     notDecimal=false;
     show();
     display.innerHTML+=".0";
-  } else {
-    val="ERROR";
-    show();
   }
   pointCount++;
 }
@@ -62,16 +65,16 @@ function useOperation(op){
 
 function equals() {
   valTwo = val;
-  if (operation == '+'){
+  if (operation === '+'){
     val = valOne + valTwo;
   }
-  if (operation == '-'){
+  if (operation === '-'){
     val = valOne - valTwo;
   }
-  if (operation == '*'){
+  if (operation === '*'){
     val = valOne * valTwo;
   }
-  if (operation == '/'){
+  if (operation === '/'){
     val = valOne / valTwo;
   }
   show();
@@ -91,7 +94,7 @@ function percent(){
 //
 // - whatever's happening with the decimals
 // - getting keepVal to be applicable
-// - formatting digits on the display
+// - commas
 // - error messages for things like equals
 // - sequencing operations
 // - nice-to-haves
