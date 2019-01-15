@@ -5,14 +5,15 @@
 
 #display-box {
   background-color: #003;
+  height: 70px;
 }
 
 button {
   background-color: #bce;
   width: 100%;
-  height: 50px;
+  height: 70px;
 }
 
 table {
-  width: 75%;
+  width: 400px;
 }
