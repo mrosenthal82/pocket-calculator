@@ -16,9 +16,26 @@ function setup(){
 function show(){
   let display = document.getElementById("display");
   display.innerHTML = val;
-  if (val.toString().length > 9){
+  let valString = val.toString();
+  if (valString.length > 9){
     display.innerHTML = Number.parseFloat(val).toExponential();
   }
+  //commas
+  // console.log(valString.length+" length");
+  if (valString.length > 3){
+    var valArray = [];
+    var valCopy = val;
+    for (let i = 0; i<valString.length; i++){
+      let expo = valString.length-i;
+      valArray[i] = Math.floor(valCopy*10/Math.pow(10, expo));
+      valCopy = Math.floor(valCopy % Math.pow(10, expo-1));
+      // valCopy -= valArray[i]*Math.pow(10,expo)*10;
+    }
+    valArray.splice(valArray.length-7, 0, ",");
+    console.log(valArray);
+    display.innerHTML = valArray.join("");
+  }
+
   if (pointCount > 1){
     display.innerHTML ="ERROR";
   } else if (operation === '/' && valTwo === 0){
@@ -46,11 +63,6 @@ function combinedValue(newDigit) {
     console.log("temp", temp);
     val += temp;
     val = Number(val.toFixed(decimalDigits + 1));
-    console.log("2", val.toPrecision(decimalDigits + 1));
-    //val = Number.parseFloat(val).toPrecision(decimalDigits);
-    console.log("3", val);
-    // let valContinuation = (newDigit/Math.pow(10, decimalDigits)).toString();
-    // val+=(parseFloat(valContinuation).toPrecision(decimalDigits.toString()));
   }
   show();
 }
@@ -99,10 +111,8 @@ function percent(){
 }
 
 // What Do I Need to Fix?
-//
-// - whatever's happening with the decimals
+// - sequencing operations and order of operations
 // - getting keepVal to be applicable
 // - commas
-// - sequencing operations
 // - nice-to-haves
 // - CSS
