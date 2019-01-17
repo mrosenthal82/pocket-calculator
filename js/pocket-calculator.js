@@ -17,12 +17,8 @@ function show(){
   let display = document.getElementById("display");
   display.innerHTML = val;
   let valString = val.toString();
-  if (valString.length > 9){
-    display.innerHTML = Number.parseFloat(val).toExponential();
-  }
+
   //commas
-  // console.log(valString.length+" length");
-  if (valString.length > 3){
     var valArray = [];
     var valCopy = val;
     for (let i = 0; i<valString.length; i++){
@@ -31,10 +27,19 @@ function show(){
       valCopy = Math.floor(valCopy % Math.pow(10, expo-1));
       // valCopy -= valArray[i]*Math.pow(10,expo)*10;
     }
-    valArray.splice(valArray.length-7, 0, ",");
-    console.log(valArray);
+    if (valString.length>=4 && valString.length<7){
+      valArray.splice(valString.length-3, 0, ",");
+    } else if (valString.length>=7){
+      valArray.splice(valString.length-3, 0, ",");
+      valArray.splice(valString.length-6, 0, ",");
+    }
     display.innerHTML = valArray.join("");
+
+  //scientific notation
+  if (valString.length > 9){
+    display.innerHTML = Number.parseFloat(val).toExponential();
   }
+
 
   if (pointCount > 1){
     display.innerHTML ="ERROR";
@@ -113,6 +118,6 @@ function percent(){
 // What Do I Need to Fix?
 // - sequencing operations and order of operations
 // - getting keepVal to be applicable
-// - commas
+// - commas (with decimals)
 // - nice-to-haves
 // - CSS
