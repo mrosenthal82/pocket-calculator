@@ -6,6 +6,8 @@ let operation;
 let notDecimal = true;
 let decimalDigits=0;
 let prevKeyType = ""; /*d for digit, o for operation, e for equals*/
+let isPositive = true;
+let isFirstDecimal = false;
 
 function setup(){
   operation="";
@@ -18,19 +20,22 @@ function resetVal(){
   pointCount=0;
   decimalDigits=0;
   notDecimal=true;
+  isPositive=true;
+  isFirstDecimal = false;
 }
 
 function point(){
-  if (pointCount==0){
-    notDecimal=false;
-    show();
-    display.innerHTML+=".0";
-  }
   pointCount++;
+  if (pointCount===1){
+    notDecimal=false;
+    isFirstDecimal = true;
+  }
+  show();
 }
 
 function negative(){
   val=0-val;
+  isPositive = false;
   show();
 }
 
@@ -65,9 +70,15 @@ function show(){
     display.innerHTML = Number.parseFloat(val).toExponential();
   }
 
-  if (pointCount > 1){
-    display.innerHTML ="ERROR";
-  } else if (operation === '/' && valTwo === 0){
+  //decimals
+  if (pointCount===1 && isFirstDecimal){
+    display.innerHTML = val + ".0";
+    isFirstDecimal = false;
+  } else if (pointCount > 1 || !isFirstDecimal){
+    display.innerHTML = val;
+  }
+
+  if (operation === '/' && valTwo === 0){
     display.innerHTML ="ERROR";
   }
 }
@@ -76,14 +87,21 @@ function combinedValue(newDigit) {
   if (prevKeyType==="e"){
     resetVal();
   }
-  if (notDecimal){
+  if (notDecimal && isPositive){
     val=val*10+newDigit;
-  } else {
+  } else if (notDecimal && !isPositive){
+    val=val*10-newDigit;
+  } else if (!notDecimal && isPositive){
+    decimalDigits++;
+    let temp = newDigit/Math.pow(10, decimalDigits);
+    val += temp;
+    val = Number(val.toFixed(decimalDigits + 1));
+  } else if (!notDecimal && !isPositive){
     decimalDigits++;
     console.log("1", val);
     let temp = newDigit/Math.pow(10, decimalDigits);
     console.log("temp", temp);
-    val += temp;
+    val -= temp;
     val = Number(val.toFixed(decimalDigits + 1));
   }
   show();
@@ -119,7 +137,7 @@ function equals() {
 }
 
 // What Do I Need to Fix?
-// - sequencing operations and order of operations
+// - sequencing and order of operations
 // - commas (with decimals)
 // - nice-to-haves
 // - CSS
