@@ -5,7 +5,6 @@ let pointCount=0;
 let operation;
 let notDecimal = true;
 let decimalDigits=0;
-let keepVal=false;
 let prevKeyType = ""; /*d for digit, o for operation, e for equals*/
 
 function setup(){
@@ -74,6 +73,9 @@ function show(){
 }
 
 function combinedValue(newDigit) {
+  if (prevKeyType==="e"){
+    resetVal();
+  }
   if (notDecimal){
     val=val*10+newDigit;
   } else {
@@ -90,8 +92,10 @@ function combinedValue(newDigit) {
 
 function useOperation(op){
   operation = op;
-  valOne = val;
-  resetVal();
+  if (prevKeyType==="d" || prevKeyType==="e"){
+    valOne = val;
+    resetVal();
+  }
   display.innerHTML=op;
   prevKeyType="o";
 }
@@ -111,14 +115,11 @@ function equals() {
     val = valOne / valTwo;
   }
   show();
-  if (!keepVal){
-    resetVal();
-  }
+  prevKeyType="e";
 }
 
 // What Do I Need to Fix?
 // - sequencing operations and order of operations
-// - getting keepVal to be applicable
 // - commas (with decimals)
 // - nice-to-haves
 // - CSS
