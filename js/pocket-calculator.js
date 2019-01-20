@@ -1,8 +1,7 @@
 let val = 0;
-let valOne;
-let valTwo;
+let valStorage = [];
 let pointCount=0;
-let operation;
+let operation = [];
 let notDecimal = true;
 let decimalDigits=0;
 let prevKeyType = ""; /*d for digit, o for operation, e for equals, p for point*/
@@ -10,16 +9,22 @@ let isPositive = true;
 let isFirstDecimal = 0;
 let maxDecimalDigits=0;
 let lastIsZero=0;
+let index = 0;
+let opIndex = 0;
 
 function setup(){
   operation="";
   maxDecimalDigits=0;
+  index=0
+  opIndex=0;
+  valStorage = [];
+  operation = [];
   resetVal();
   show();
 }
 
 function resetVal(){
-  val = 0;
+  val=0;
   pointCount=0;
   decimalDigits=0;
   notDecimal=true;
@@ -39,7 +44,7 @@ function point(){
 
 function negative(){
   val=0-val;
-  isPositive = false;
+  isPositive = !isPositive;
   show();
 }
 
@@ -51,14 +56,14 @@ function percent(){
 function show(){
   let display = document.getElementById("display");
   display.innerHTML = val;
-  let temp = val;
+  let valCopy = val;
   if (!isPositive){
-    temp = 0-val;
+    valCopy = 0-val;
   }
-  let valLength = temp.toString().length;
+  let valLength = valCopy.toString().length;
   //commas
   var valArray = [];
-  var valCopy = val;
+  // var valCopy = val;
   let three = valLength-3;
   let six = valLength-6;
   let change = 0;
@@ -98,6 +103,7 @@ function show(){
   if (!isPositive){
     display.innerHTML = "-"+valArray.join("");
   }
+  console.log(valArray);
 
   //scientific notation
   if (valLength+decimalDigits > 9){
@@ -110,7 +116,7 @@ function show(){
     isFirstDecimal = false;
   }
 
-  if (operation === '/' && valTwo === 0){
+  if (operation === '/' && valStorage[1] === 0){
     display.innerHTML ="ERROR";
   }
 }
@@ -119,6 +125,7 @@ function combinedValue(newDigit) {
   if (prevKeyType==="e"){
     resetVal();
     maxDecimalDigits=0;
+    index=0;
   }
   if (notDecimal && isPositive){
     val=val*10+newDigit;
@@ -143,9 +150,10 @@ function combinedValue(newDigit) {
 }
 
 function useOperation(op){
-  operation = op;
+  operation[0] = op;
   if (prevKeyType==="d" || prevKeyType==="e"){
-    valOne = val;
+    valStorage[index] = val;
+    index++;
     if (decimalDigits>maxDecimalDigits){
       maxDecimalDigits=decimalDigits;
     }
@@ -153,21 +161,24 @@ function useOperation(op){
   }
   display.innerHTML=op;
   prevKeyType="o";
+  console.log(valStorage);
 }
 
 function equals() {
-  valTwo = val;
-  if (operation === '+'){
-    val = valOne + valTwo;
+  // index++;
+  valStorage[1] = val;
+  if (operation[0] === '+'){
+    val = Number(valStorage[0]) + Number(valStorage[1]);
   }
-  if (operation === '-'){
-    val = valOne - valTwo;
+  if (operation[0] === '-'){
+    val = Number(valStorage[0]) - Number(valStorage[1]);
   }
-  if (operation === '*'){
-    val = valOne * valTwo;
+  if (operation[0] === '*'){
+    val = Number(valStorage[0]) * Number(valStorage[1]);
+    console.log(val);
   }
-  if (operation === '/'){
-    val = valOne / valTwo;
+  if (operation[0] === '/'){
+    val = Number(valStorage[0]) / Number(valStorage[1]);
   }
 
   decimalDigits=maxDecimalDigits;
@@ -177,8 +188,15 @@ function equals() {
     }
   }
   val = val.toFixed(decimalDigits);
+  if (val<0){
+    isPositive=false;
+  } else if (val>=0){
+    isPositive=true;
+  }
   show();
   prevKeyType="e";
+
+  console.log(valStorage);
 }
 
 // What Do I Need to Fix?
