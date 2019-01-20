@@ -7,7 +7,7 @@ let notDecimal = true;
 let decimalDigits=0;
 let prevKeyType = ""; /*d for digit, o for operation, e for equals*/
 let isPositive = true;
-let isFirstDecimal = false;
+let isFirstDecimal = 0;
 
 function setup(){
   operation="";
@@ -48,22 +48,38 @@ function show(){
   let display = document.getElementById("display");
   display.innerHTML = val;
   let valString = val.toString();
-
+  let valLength = valString.length;
   //commas
-  // var valArray = [];
-  // var valCopy = val;
-  // for (let i = 0; i<valString.length; i++){
-  //   let expo = valString.length-i;
-  //   valArray[i] = Math.floor(valCopy*10/Math.pow(10, expo));
-  //   valCopy = Math.floor(valCopy % Math.pow(10, expo-1));
-  // }
-  // if (valString.length>=4 && valString.length<7){
-  //   valArray.splice(valString.length-3, 0, ",");
-  // } else if (valString.length>=7){
-  //   valArray.splice(valString.length-3, 0, ",");
-  //   valArray.splice(valString.length-6, 0, ",");
-  // }
-  // display.innerHTML = valArray.join("");
+  var valArray = [];
+  var valCopy = val;
+  let three = valLength-3;
+  let six = valLength-6;
+  if (decimalDigits>0){
+    valLength -= decimalDigits+1;
+    three -= decimalDigits+1;
+    six -= decimalDigits+1;
+  }
+  for (var i = 0; i<valLength; i++){ /*converting to array*/
+    let expo = valLength-i;
+    valArray[i] = Math.floor(valCopy*10/Math.pow(10, expo));
+    valCopy = (valCopy % Math.pow(10, expo-1)).toFixed(decimalDigits);
+  }
+  if (decimalDigits>0){ /*adding decimals to the array*/
+    valArray[i]=".";
+    i++;
+    for (let j = 0; j<decimalDigits; j++){
+      valArray[i] = Math.floor(valCopy*10);
+      i++;
+      valCopy = ((valCopy*10) % 1).toFixed(decimalDigits);
+    }
+  }
+  if (valLength>=4 && valLength<7){ /*splicing in the commas*/
+    valArray.splice(three, 0, ",");
+  } else if (valLength>=7){
+    valArray.splice(three, 0, ",");
+    valArray.splice(six, 0, ",");
+  }
+  display.innerHTML = valArray.join("");
 
   //scientific notation
   if (valString.length > 9){
@@ -72,9 +88,10 @@ function show(){
 
   //decimals
   if (pointCount===1 && isFirstDecimal){
-    display.innerHTML = val + ".0";
+    display.innerHTML = valArray.join("") + ".0";
     isFirstDecimal = false;
-  } else if (pointCount > 1 || !isFirstDecimal){
+  }
+  else if (pointCount > 1 /*|| !isFirstDecimal*/){
     display.innerHTML = val;
   }
 
@@ -93,15 +110,11 @@ function combinedValue(newDigit) {
     val=val*10-newDigit;
   } else if (!notDecimal && isPositive){
     decimalDigits++;
-    let temp = newDigit/Math.pow(10, decimalDigits);
-    val += temp;
+    val += newDigit/Math.pow(10, decimalDigits);
     val = Number(val.toFixed(decimalDigits + 1));
   } else if (!notDecimal && !isPositive){
     decimalDigits++;
-    console.log("1", val);
-    let temp = newDigit/Math.pow(10, decimalDigits);
-    console.log("temp", temp);
-    val -= temp;
+    val -= newDigit/Math.pow(10, decimalDigits);
     val = Number(val.toFixed(decimalDigits + 1));
   }
   show();
