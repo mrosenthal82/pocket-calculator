@@ -52,7 +52,6 @@ function show(){
   let display = document.getElementById("display");
   display.innerHTML = val;
   let valLength = val.toString().length;
-  console.log("valLength initial "+valLength);
   //commas
   var valArray = [];
   var valCopy = val;
@@ -62,37 +61,31 @@ function show(){
     valLength -= decimalDigits+1;
     three -= decimalDigits+1;
     six -= decimalDigits+1;
-    if (lastIsZero>0){ //fix this
+    if (lastIsZero>0){
       valLength+=lastIsZero;
       three+=lastIsZero;
       six+=lastIsZero;
-      if (prevKeyType==="p"){
+      if (val%1==0){
         valLength++;
         three++;
         six++;
       }
     }
   }
-  console.log("valLength "+valLength);
   for (var i = 0; i<valLength; i++){ /*converting to array*/
     let expo = valLength-i;
     valArray[i] = Math.floor(valCopy*10/Math.pow(10, expo));
-    // console.log(valArray);
     valCopy = (valCopy % Math.pow(10, expo-1)).toFixed(decimalDigits);
-    console.log("valCopy "+valCopy);
   }
   if (decimalDigits>0){ /*adding decimals to the array*/
     valArray[i]=".";
     i++;
     for (let j = 0; j<decimalDigits; j++){
       valArray[i] = Math.floor(valCopy*10);
-      // console.log(valArray);
       i++;
       valCopy = ((valCopy*10) % 1).toFixed(decimalDigits);
-      console.log("valCopy "+valCopy);
     }
   }
-  console.log(valArray);
   if (valLength>=4 && valLength<7){ /*splicing in the commas*/
     valArray.splice(three, 0, ",");
   } else if (valLength>=7){
@@ -110,9 +103,6 @@ function show(){
   if (pointCount===1 && isFirstDecimal){
     display.innerHTML = valArray.join("") + ".0";
     isFirstDecimal = false;
-  }
-  else if (pointCount > 1 /*|| !isFirstDecimal*/){
-    display.innerHTML = val;
   }
 
   if (operation === '/' && valTwo === 0){
@@ -175,9 +165,14 @@ function equals() {
     val = valOne / valTwo;
   }
 
-  // decimalDigits = (val%1).toString().length-1;
   decimalDigits=maxDecimalDigits;
-  val = val.toFixed(maxDecimalDigits);
+  for (let i = decimalDigits; i>=0; i--){
+    if (Number(val.toFixed(i))==Number(val.toFixed(decimalDigits))) {
+      decimalDigits=i;
+      console.log("in the if");
+    }
+  }
+  val = val.toFixed(decimalDigits);
   show();
   prevKeyType="e";
 }
