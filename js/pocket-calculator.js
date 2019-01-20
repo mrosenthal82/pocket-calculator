@@ -51,27 +51,29 @@ function percent(){
 function show(){
   let display = document.getElementById("display");
   display.innerHTML = val;
-  let valLength = val.toString().length;
+  let temp = val;
+  if (!isPositive){
+    temp = 0-val;
+  }
+  let valLength = temp.toString().length;
   //commas
   var valArray = [];
   var valCopy = val;
   let three = valLength-3;
   let six = valLength-6;
+  let change = 0;
   if (decimalDigits>0){
-    valLength -= decimalDigits+1;
-    three -= decimalDigits+1;
-    six -= decimalDigits+1;
+    change -= decimalDigits+1;
     if (lastIsZero>0){
-      valLength+=lastIsZero;
-      three+=lastIsZero;
-      six+=lastIsZero;
+      change+=lastIsZero;
       if (val%1==0){
-        valLength++;
-        three++;
-        six++;
+        change++;
       }
     }
   }
+  valLength+=change;
+  three+=change;
+  six+=change;
   for (var i = 0; i<valLength; i++){ /*converting to array*/
     let expo = valLength-i;
     valArray[i] = Math.floor(valCopy*10/Math.pow(10, expo));
@@ -93,6 +95,9 @@ function show(){
     valArray.splice(six, 0, ",");
   }
   display.innerHTML = valArray.join("");
+  if (!isPositive){
+    display.innerHTML = "-"+valArray.join("");
+  }
 
   //scientific notation
   if (valLength+decimalDigits > 9){
@@ -169,7 +174,6 @@ function equals() {
   for (let i = decimalDigits; i>=0; i--){
     if (Number(val.toFixed(i))==Number(val.toFixed(decimalDigits))) {
       decimalDigits=i;
-      console.log("in the if");
     }
   }
   val = val.toFixed(decimalDigits);
@@ -179,6 +183,6 @@ function equals() {
 
 // What Do I Need to Fix?
 // - sequencing and order of operations
-// - commas (with decimals)
+// - whatever is happening with negatives
 // - nice-to-haves
 // - CSS
