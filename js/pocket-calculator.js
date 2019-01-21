@@ -67,7 +67,6 @@ function show(){
   let valLength = valCopy.toString().length;
   //commas
   var valArray = [];
-  // var valCopy = val;
   let three = valLength-3;
   let six = valLength-6;
   let change = 0;
@@ -107,12 +106,10 @@ function show(){
   if (!isPositive){
     display.innerHTML = "-"+valArray.join("");
   }
-
   //scientific notation
   if (valLength+decimalDigits > 9){
     display.innerHTML = Number.parseFloat(val).toExponential();
   }
-
   //decimals
   if (pointCount===1 && isFirstDecimal){
     display.innerHTML = valArray.join("") + ".0";
@@ -168,7 +165,6 @@ function useOperation(op){
 
 function equals() {
   valStorage[index] = val;
-  console.log("A "+valStorage);
   while (operation.indexOf("*")!=-1){
     let z = operation.indexOf("*");
     valStorage[z]=Number(valStorage[z]) * Number(valStorage[z+1]);
@@ -196,7 +192,6 @@ function equals() {
     valStorage.splice(z+1,1);
     operation.splice(z,1);
   }
-
   val = Number(valStorage[0]);
   decimalDigits=8;
   for (let i = decimalDigits; i>=0; i--){
@@ -217,10 +212,8 @@ function equals() {
   prevKeyType="e";
   index--;
   opIndex--;
-  console.log("D "+valStorage);
 }
 
 // What Do I Need to Fix?
-// - order of operations
 // - nice-to-haves
 // - CSS
