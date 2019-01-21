@@ -213,7 +213,3 @@ function equals() {
   index--;
   opIndex--;
 }
-
-// What Do I Need to Fix?
-// - nice-to-haves
-// - CSS
