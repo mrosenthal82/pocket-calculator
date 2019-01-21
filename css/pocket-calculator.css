@@ -5,12 +5,13 @@
 
 #display {
   text-align: right;
-  color: #fff;
+  color: #eefcff;
   margin-right: 20px;
+  font-size: 27px;
 }
 
 #display-box {
-  background-color: #080c36;
+  background-color: #181c46;
   height: 70px;
   border-radius: 7px;
 }
@@ -31,12 +32,16 @@ button:hover{
   background-color: #b0c0f0;
 }
 
+button:active{
+  border-color: #9eaece;
+}
+
 table {
   width: 410px;
   background-color: #f6faff;
-  border-radius: 5px;
+  border-radius: 8px;
   display: inline-block;
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 5px;
   box-shadow: 5px 5px 3px;
 }
@@ -52,4 +57,11 @@ body{
 
 #zero {
   width: 192px;
+}
+
+h1 {
+  font-size: 36px;
+  color: #deecff;
+  text-shadow: 3px 3px 2px black;
+  margin-top: 30px;
 }
