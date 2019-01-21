@@ -10,10 +10,12 @@ let isFirstDecimal = 0;
 let lastIsZero=0;
 let index = 0;
 let opIndex = 0;
+let error;
 
 function setup(){
   resetVal();
   resetArrays();
+  error=false;
   show();
 }
 
@@ -51,6 +53,7 @@ function negative(){
 
 function percent(){
   val=val/100;
+  decimalDigits+=2;
   show();
 }
 
@@ -115,16 +118,13 @@ function show(){
     display.innerHTML = valArray.join("") + ".0";
     isFirstDecimal = false;
   }
-
-  if (operation === '/' && valStorage[1] === 0){
-    display.innerHTML ="ERROR";
-  }
 }
 
 function combinedValue(newDigit) {
   if (prevKeyType==="e"){
     resetVal();
     resetArrays();
+    error=false;
   }
   if (notDecimal && isPositive){
     val=val*10+newDigit;
@@ -156,6 +156,8 @@ function useOperation(op){
     resetArrays();
     valStorage[index] = Number(val);
     index++;
+  } else if (prevKeyType==="o"){
+    opIndex--;
   }
   operation[opIndex] = op;
   resetVal();
@@ -176,6 +178,9 @@ function equals() {
   while (operation.indexOf("/")!=-1){
     let z = operation.indexOf("/");
     valStorage[z]=Number(valStorage[z]) / Number(valStorage[z+1]);
+    if (valStorage[z+1]==0){
+      error = true;
+    }
     valStorage.splice(z+1,1);
     operation.splice(z,1);
   }
@@ -206,6 +211,9 @@ function equals() {
     isPositive=true;
   }
   show();
+  if (error){
+    display.innerHTML="ERROR";
+  }
   prevKeyType="e";
   index--;
   opIndex--;
