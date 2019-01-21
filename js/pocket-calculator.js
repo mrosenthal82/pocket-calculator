@@ -7,14 +7,11 @@ let decimalDigits=0;
 let prevKeyType = ""; /*d for digit, o for operation, e for equals, p for point*/
 let isPositive = true;
 let isFirstDecimal = 0;
-let maxDecimalDigits=0;
 let lastIsZero=0;
 let index = 0;
 let opIndex = 0;
 
 function setup(){
-  operation="";
-  maxDecimalDigits=0;
   resetVal();
   resetArrays();
   show();
@@ -127,8 +124,7 @@ function show(){
 function combinedValue(newDigit) {
   if (prevKeyType==="e"){
     resetVal();
-    maxDecimalDigits=0;
-    index=0;
+    resetArrays();
   }
   if (notDecimal && isPositive){
     val=val*10+newDigit;
@@ -153,7 +149,6 @@ function combinedValue(newDigit) {
 }
 
 function useOperation(op){
-
   if (prevKeyType==="d"){
     valStorage[index] = Number(val);
     index++;
@@ -163,37 +158,42 @@ function useOperation(op){
     index++;
   }
   operation[opIndex] = op;
-
-    if (decimalDigits>maxDecimalDigits){
-      maxDecimalDigits=decimalDigits;
-    }
-    resetVal();
-
+  resetVal();
   display.innerHTML=op;
   prevKeyType="o";
-
   opIndex++;
 }
 
 function equals() {
   valStorage[index] = val;
   console.log("A "+valStorage);
-  for (let i = 0; i<operation.length;i++){
-    if (operation[i] === '*'){
-      valStorage[0] = Number(valStorage[0]) * Number(valStorage[1]);
-    } else if (operation[i] === '/'){
-      valStorage[0] = Number(valStorage[0]) / Number(valStorage[1]);
-    } else if (operation[i] === '+'){
-      valStorage[0] = Number(valStorage[0]) + Number(valStorage[1]);
-    } else if (operation[i] === '-'){
-      valStorage[0] = Number(valStorage[0]) - Number(valStorage[1]);
-    }
-    console.log("B "+valStorage);
-    valStorage.splice(1,1);
-    console.log("C "+valStorage);
+  while (operation.indexOf("*")!=-1){
+    let z = operation.indexOf("*");
+    valStorage[z]=Number(valStorage[z]) * Number(valStorage[z+1]);
+    valStorage.splice(z+1,1);
+    operation.splice(z,1);
   }
-  val = Number(valStorage[valStorage.length-1]);
-  decimalDigits=maxDecimalDigits;
+  while (operation.indexOf("/")!=-1){
+    let z = operation.indexOf("/");
+    valStorage[z]=Number(valStorage[z]) / Number(valStorage[z+1]);
+    valStorage.splice(z+1,1);
+    operation.splice(z,1);
+  }
+  while (operation.indexOf("+")!=-1){
+    let z = operation.indexOf("+");
+    valStorage[z]=Number(valStorage[z]) + Number(valStorage[z+1]);
+    valStorage.splice(z+1,1);
+    operation.splice(z,1);
+  }
+  while (operation.indexOf("-")!=-1){
+    let z = operation.indexOf("-");
+    valStorage[z]=Number(valStorage[z]) - Number(valStorage[z+1]);
+    valStorage.splice(z+1,1);
+    operation.splice(z,1);
+  }
+
+  val = Number(valStorage[0]);
+  decimalDigits=8;
   for (let i = decimalDigits; i>=0; i--){
     if (Number(val.toFixed(i))==Number(val.toFixed(decimalDigits))) {
       decimalDigits=i;
@@ -213,7 +213,6 @@ function equals() {
 }
 
 // What Do I Need to Fix?
-// - sequencing and order of operations
-// - whatever is happening with negatives
+// - order of operations
 // - nice-to-haves
 // - CSS
