@@ -15,11 +15,8 @@ let opIndex = 0;
 function setup(){
   operation="";
   maxDecimalDigits=0;
-  index=0
-  opIndex=0;
-  valStorage = [];
-  operation = [];
   resetVal();
+  resetArrays();
   show();
 }
 
@@ -30,6 +27,13 @@ function resetVal(){
   notDecimal=true;
   isPositive=true;
   isFirstDecimal=false;
+}
+
+function resetArrays(){
+  valStorage=[];
+  index=0;
+  operation=[];
+  opIndex=0;
 }
 
 function point(){
@@ -103,7 +107,6 @@ function show(){
   if (!isPositive){
     display.innerHTML = "-"+valArray.join("");
   }
-  console.log(valArray);
 
   //scientific notation
   if (valLength+decimalDigits > 9){
@@ -150,37 +153,46 @@ function combinedValue(newDigit) {
 }
 
 function useOperation(op){
-  operation[0] = op;
-  if (prevKeyType==="d" || prevKeyType==="e"){
-    valStorage[index] = val;
+
+  if (prevKeyType==="d"){
+    valStorage[index] = Number(val);
     index++;
+  } else if (prevKeyType==="e"){
+    resetArrays();
+    valStorage[index] = Number(val);
+    index++;
+  }
+  operation[opIndex] = op;
+
     if (decimalDigits>maxDecimalDigits){
       maxDecimalDigits=decimalDigits;
     }
     resetVal();
-  }
+
   display.innerHTML=op;
   prevKeyType="o";
-  console.log(valStorage);
+
+  opIndex++;
 }
 
 function equals() {
-  // index++;
-  valStorage[1] = val;
-  if (operation[0] === '+'){
-    val = Number(valStorage[0]) + Number(valStorage[1]);
+  valStorage[index] = val;
+  console.log("A "+valStorage);
+  for (let i = 0; i<operation.length;i++){
+    if (operation[i] === '*'){
+      valStorage[0] = Number(valStorage[0]) * Number(valStorage[1]);
+    } else if (operation[i] === '/'){
+      valStorage[0] = Number(valStorage[0]) / Number(valStorage[1]);
+    } else if (operation[i] === '+'){
+      valStorage[0] = Number(valStorage[0]) + Number(valStorage[1]);
+    } else if (operation[i] === '-'){
+      valStorage[0] = Number(valStorage[0]) - Number(valStorage[1]);
+    }
+    console.log("B "+valStorage);
+    valStorage.splice(1,1);
+    console.log("C "+valStorage);
   }
-  if (operation[0] === '-'){
-    val = Number(valStorage[0]) - Number(valStorage[1]);
-  }
-  if (operation[0] === '*'){
-    val = Number(valStorage[0]) * Number(valStorage[1]);
-    console.log(val);
-  }
-  if (operation[0] === '/'){
-    val = Number(valStorage[0]) / Number(valStorage[1]);
-  }
-
+  val = Number(valStorage[valStorage.length-1]);
   decimalDigits=maxDecimalDigits;
   for (let i = decimalDigits; i>=0; i--){
     if (Number(val.toFixed(i))==Number(val.toFixed(decimalDigits))) {
@@ -195,8 +207,9 @@ function equals() {
   }
   show();
   prevKeyType="e";
-
-  console.log(valStorage);
+  index--;
+  opIndex--;
+  console.log("D "+valStorage);
 }
 
 // What Do I Need to Fix?
