@@ -5,6 +5,7 @@
     <title>Pocket Calculator</title>
     <link rel="stylesheet" type="text/css" href="css/pocket-calculator.css"/>
     <script type="text/javascript" src="js/pocket-calculator.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto+Sans"/>
   </head>
   <body>
     <div onload="setup();" id="calculator-body">
@@ -39,7 +40,7 @@
             <td><button onclick="useOperation('+');">+</button></td>
           </tr>
           <tr>
-            <td colspan="2" onclick="combinedValue(0);"><button>0</button></td>
+            <td colspan="2"><button onclick="combinedValue(0);" id="zero">0</button></td>
             <td><button onclick="point();">.</button></td>
             <td><button onclick="equals();">=</button></td>
           </tr>

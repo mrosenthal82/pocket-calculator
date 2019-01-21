@@ -1,19 +1,55 @@
+* {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 25px;
+}
+
 #display {
   text-align: right;
   color: #fff;
+  margin-right: 20px;
 }
 
 #display-box {
-  background-color: #003;
+  background-color: #080c36;
   height: 70px;
+  border-radius: 7px;
 }
 
 button {
   background-color: #bce;
-  width: 100%;
+  width: 94.5px;
   height: 70px;
+  color: #003;
+  border-width: medium;
+  border-color: #abd;
+  display: inline-block;
+  margin: .5px;
+  border-radius: 5px;
+}
+
+button:hover{
+  background-color: #b0c0f0;
 }
 
 table {
-  width: 400px;
+  width: 410px;
+  background-color: #f6faff;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 50px;
+  padding: 5px;
+  box-shadow: 5px 5px 3px;
+}
+
+body{
+  background-image: url("../images/doodle4.heic");
+  background-color: #000;
+}
+
+#calculator-body{
+  text-align: center;
+}
+
+#zero {
+  width: 192px;
 }
