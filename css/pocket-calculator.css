@@ -18,13 +18,13 @@
 
 button {
   background-color: #bce;
-  width: 94.5px;
+  width: 96px;
   height: 70px;
   color: #003;
   border-width: medium;
   border-color: #abd;
   display: inline-block;
-  margin: .5px;
+  margin: 1px;
   border-radius: 5px;
 }
 
